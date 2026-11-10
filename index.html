@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hino à Bandeira Nacional</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(135deg, #002710, #001408);
+            color: #fff;
+            font-family: 'Georgia', serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Detalhes decorativos nas bordas do site */
+        body::before {
+            content: '';
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            right: 20px;
+            bottom: 20px;
+            border: 2px solid rgba(255, 223, 0, 0.3);
+            pointer-events: none;
+            z-index: 10;
+        }
+
+        /* Container que esconde o texto que está fora da área visual */
+        .window {
+            width: 80%;
+            max-width: 600px;
+            height: 70vh;
+            overflow: hidden;
+            position: relative;
+            mask-image: linear-gradient(transparent, white 20%, white 80%, transparent);
+            -webkit-mask-image: linear-gradient(transparent, white 20%, white 80%, transparent);
+        }
+
+        /* Elemento que carrega as estrofes e faz o movimento */
+        .scroller {
+            position: absolute;
+            width: 100%;
+            text-align: center;
+            animation: subirLetra 25s linear infinite;
+        }
+
+        /* Pausa o movimento quando você passa o mouse por cima (fácil para copiar) */
+        .scroller:hover {
+            animation-play-state: paused;
+        }
+
+        h1 {
+            color: #FFDF00;
+            font-size: 2.2rem;
+            margin-bottom: 3rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-shadow: 0 4px 8px rgba(0,0,0,0.5);
+        }
+
+        p {
+            font-size: 1.3rem;
+            line-height: 1.8;
+            margin-bottom: 2.5rem;
+            color: #e0e0e0;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+        }
+
+        .refrao {
+            color: #FFDF00;
+            font-style: italic;
+            font-weight: bold;
+        }
+
+        .aviso {
+            position: absolute;
+            bottom: 30px;
+            font-family: sans-serif;
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.4);
+            letter-spacing: 1px;
+        }
+
+        /* Animação que faz o texto subir de baixo para cima */
+        @keyframes subirLetra {
+            0% {
+                transform: translateY(70vh);
+            }
+            100% {
+                transform: translateY(-100%);
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="window">
+        <div class="scroller" id="letraContainer">
+            <h1>Hino à Bandeira</h1>
+            
+            <p>
+                Salve, lindo pendão da esperança,<br>
+                Salve, símbolo augusto da paz!<br>
+                Tua nobre presença à lembrança<br>
+                A grandeza da Pátria nos traz.
+            </p>
+
+            <p class="refrao">
+                Recebe o afeto que se encerra<br>
+                Em nosso peito juvenil,<br>
+                Querido símbolo da terra,<br>
+                Da amada terra do Brasil!
+            </p>
+
+            <p>
+                Em teu seio formoso retratas<br>
+                Este céu de puríssimo azul,<br>
+                A verdura sem par destas matas,<br>
+                E o esplendor do Cruzeiro do Sul.
+            </p>
+
+            <p class="refrao">
+                Recebe o afeto que se encerra<br>
+                Em nosso peito juvenil,<br>
+                Querido símbolo da terra,<br>
+                Da amada terra do Brasil!
+            </p>
+        </div>
+    </div>
+
+    <div class="aviso">Passe o mouse por cima do texto para pausar e copiar</div>
+
+    <script>
+        // O JavaScript monitora se o usuário está selecionando o texto
+        // para pausar a animação automaticamente enquanto ele copia.
+        const scroller = document.getElementById('letraContainer');
+
+        document.addEventListener('selectionchange', () => {
+            const selection = window.getSelection().toString();
+            if (selection.length > 0) {
+                scroller.style.animationPlayState = 'paused';
+            } else {
+                // Só volta a mover se o mouse também não estiver em cima
+                if (!scroller.matches(':hover')) {
+                    scroller.style.animationPlayState = 'running';
+                }
+            }
+        });
+    </script>
+</body>
+</html>
